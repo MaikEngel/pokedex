@@ -363,6 +363,10 @@ tr {
     padding: 36px;
 }
 
+.statsTable {
+    width: 765px;
+}
+
 .dNone {
     display: none;
 }
@@ -789,4 +793,257 @@ tr {
 
 .pokemonBackgroundFairyView {
     background-color: #f68ae3;
+}
+
+@media (max-width: 1279px) {
+    .pokemonDetails {
+        width: 379px;
+
+    }
+
+    .pokemonDetailsLayoutRight {
+        width: -webkit-fill-available;
+    }
+
+    .statsTable {
+        width: 295px !important;
+    }
+
+    .statsName {
+        width: 175px;
+    }
+
+    .progress {
+        width: 80px;
+        margin-top: 4px;
+        height: 8px !important;
+    }
+
+    .secondEvolutionImg0 {
+        right: 135px;
+    }
+
+    .secondEvolutionImg1 {
+        right: 135px;
+    }
+
+    .secondEvolutionImg2 {
+        right: 135px;
+    }
+
+    .secondEvolutionImg3 {
+        right: 135px;
+    }
+
+    .secondEvolutionImg4 {
+        right: 48px;
+    }
+
+    .secondEvolutionImg5 {
+        right: 48px;
+    }
+
+    .secondEvolutionImg6 {
+        right: 48px;
+    }
+
+    .evolutionFirstArrow0 {
+        display: none;
+    }
+
+    .evolutionFirstArrow1 {
+        display: none;
+    }
+
+    .evolutionFirstArrow2 {
+        display: none;
+    }
+
+    .evolutionFirstArrow3 {
+        display: none;
+    }
+
+    .evolutionFirstArrow4 {
+        display: none;
+    }
+
+    .evolutionFirstArrow5 {
+        display: none;
+    }
+
+    .evolutionFirstArrow6 {
+        display: none;
+    }
+
+    .evolutionFirstArrow7 {
+        display: none;
+    }
+
+    .secondEvolutionArrow0 {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        display: none;
+    }
+
+    .titleScreen h1 {
+        font-size: 88px;
+    }
+
+    .titleScreen h2 {
+        font-size: 30px;
+    }
+
+    .pokemonDetailsLayout {
+        flex-direction: column;
+    }
+
+    .detailsImg {
+        max-height: 190px;
+    }
+
+    .pokemonDetails {
+        height: 553px;
+    }
+
+    .detailsRightSide {
+        height: 454px;
+    }
+
+    .firstEvolutionImg {
+        top: 6px;
+    }
+
+    .secondEvolutionImg0 {
+        top: 6px;
+    }
+
+    .secondEvolutionImg1 {
+        top: 119px;
+    }
+
+    .secondEvolutionImg2 {
+        top: 231px;
+    }
+
+    .secondEvolutionImg3 {
+        top: 343px;
+    }
+
+    .secondEvolutionImg4 {
+        top: 66px;
+    }
+
+    .secondEvolutionImg5 {
+        top: 184px;
+    }
+
+    .secondEvolutionImg6 {
+        top: 294px;
+    }
+
+    .secondEvolutionImg7 {
+        top: 343px;
+    }
+
+    .thirdEvolutionImg {
+        top: 6px;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .detailsImg {
+        display: none;
+    }
+
+    .pokemonDetails {
+        width: 250px;
+    }
+
+
+    .firstEvolutionImg {
+        height: 40px;
+    }
+
+    .secondEvolutionImg0 {
+        height: 40px;
+        right: 90px;
+    }
+
+    .secondEvolutionImg1 {
+        height: 40px;
+        right: 90px;
+    }
+
+    .secondEvolutionImg2 {
+        height: 40px;
+        right: 90px;
+    }
+
+    .secondEvolutionImg3 {
+        height: 40px;
+        right: 90px;
+    }
+
+    .secondEvolutionImg4 {
+        height: 40px;
+        right: 48px;
+    }
+
+    .secondEvolutionImg5 {
+        height: 40px;
+        right: 48px;
+    }
+
+    .secondEvolutionImg6 {
+        height: 40px;
+
+        right: 48px;
+    }
+
+    .secondEvolutionImg7 {
+        height: 40px;
+        top: 343px;
+    }
+
+    h4 {
+        font-size: 16px !important;
+    }
+
+    .information {
+        font-size: 16px;
+    }
+
+    .detailsRightSide {
+        padding: 8px;
+    }
+
+    .statsName {
+        width: 123px;
+    }
+
+    .statsTable {
+        width: 201px !important;
+    }
+
+    .pokemonName {
+        flex-wrap: wrap;
+    }
+
+    .titleScreen h1 {
+        font-size: 50px;
+    }
+
+    #loadingScreen {
+        height: 150px;
+    }
+
+    .titleScreen {
+        position: absolute;
+        top: 115px;
+    }
 }

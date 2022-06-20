@@ -4,6 +4,7 @@ function searchNames() {
     search.value = search.value.toLowerCase();
     console.log(search.value);
     let pokemonList = document.getElementById('pokemonList');
+    searching = true;
 
     if (search.value.length >= 3) {
 
@@ -23,7 +24,8 @@ function searchNames() {
     if (search.value.length == 0) {
         pokemonList.innerHTML = "";
         newPokemon = 0;
-        loadAll()
+        searching = false;
+        init()
     }
 }
 
@@ -42,6 +44,8 @@ let evolutionChain = [];
 let loaded = false;
 let apis = false;
 let count;
+
+let searching = false;
 
 let currentElement;
 let url;
@@ -223,13 +227,15 @@ window.onscroll = function () {
 }
 
 function loadMore() {
-    if (counter <= 898) {
-        if (request == true) {
-            request = false;
+    if (searching == false) {
+        if (counter <= 898) {
+            if (request == true) {
+                request = false;
 
-            newPokemon = counter;
+                newPokemon = counter;
 
-            init()
+                init()
+            }
         }
     }
 }
@@ -383,7 +389,7 @@ function renderAbout(i) {
 
 function loadAbout(i, height, weight, base_experience) {
     return `
-    <table style="min-width: 765px;">
+    <table class="statsTable">
     <tr>
         <td class="statsName">
             <h4>Base experience:</h4>
@@ -453,7 +459,7 @@ function loadBaseValue(i, pokemonStats) {
 
 function loadStats(statName, baseStat, baseStatResult) {
     return `
-    <table style="min-width: 765px;">
+    <table class="statsTable">
     <tr style="display: flex; align-items: center; justify-content: space-between;">
         <td class="statsName">
             <h4>${statName}:</h4>
