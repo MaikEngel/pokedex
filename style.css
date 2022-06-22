@@ -1,4 +1,27 @@
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+    scrollbar-width: none;
+    scrollbar-color: none;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 0;
+}
+
+*::-webkit-scrollbar-track {
+    background: none;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: none;
+    border-bottom-right-radius: 500px;
+    border: 1px none none;
+}
+
 body {
+    border-bottom-right-radius: 30px;
     background-color: rgb(255, 210, 210) !important;
     margin: 0;
     font-family: 'Roboto', sans-serif;
@@ -10,17 +33,40 @@ body {
     align-items: center;
 }
 
+.dropdown-toggle::after {
+    margin-left: 0 !important;
+}
+
 header {
-    background-color: yellow;
+    background-color: rgb(254, 228, 98);
     width: 100%;
     padding: 16px;
     height: 80px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     position: fixed;
     top: 0;
     z-index: 6;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+
+}
+
+.displayFlexJustifyContentAlignitems {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.displayFlexJustifyContentAlignitemsEnd {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.displayFlexJustifyContent {
+    display: flex;
+    justify-content: space-between;
 }
 
 #main {
@@ -32,7 +78,19 @@ header {
     width: 200px;
 }
 
+.searchArea {
+    position: relative;
+}
 
+
+.outputSearchPoke {
+    background: white;
+    max-height: 300px;
+    overflow-y: scroll;
+    border-left: solid 1px black;
+    border-right: solid 1px black;
+    border-radius: 15px;
+}
 
 .titleScreen {
     font-family: 'Bowlby One SC' !important;
@@ -70,9 +128,22 @@ header {
     }
 }
 
+.searchResult {
+    border-bottom: solid 1px black;
+    padding-right: 16px;
+    cursor: pointer;
+
+}
+
+.searchResult:hover {
+    filter: drop-shadow(10px 2px 10px black);
+}
+
 .searchBar {
     height: 50px;
-    width: 200px;
+    width: 255px;
+    outline: none;
+    border-radius: 15px;
 }
 
 h2 {
@@ -150,6 +221,10 @@ tr {
     position: relative;
     cursor: pointer;
     margin: 4px;
+}
+
+.pokemonBackground:hover {
+    Filter: drop-shadow(2px 4px 6px black);
 }
 
 .pokemonBackground h2 {
@@ -309,7 +384,8 @@ tr {
     width: 870px;
     border-radius: 30px;
     display: flex;
-    box-shadow: 5px 5px 18px 8px #ffffff
+    box-shadow: 5px 5px 18px 8px #ffffff;
+    cursor: context-menu;
 }
 
 .detailsImg {
@@ -326,28 +402,13 @@ tr {
     margin-bottom: 8px;
 }
 
-.detailsInfoLinksLeft {
+.detailsInfo a {
     text-decoration: none;
-    color: rgba(0, 0, 0, 0.5);
-    font-size: 14px;
-    margin-left: 4px;
-    margin-right: 4px;
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: space-around;
 }
 
-.detailsInfoLinksLeft a {
+.detailsInfo a:hover {
     text-decoration: none;
-    color: rgba(0, 0, 0, 0.5);
-    font-size: 14px;
-    margin-left: 4px;
-    margin-right: 4px;
-
-}
-
-.detailsInfoLinksLeft a:hover {
-    text-decoration: underline;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .pokemonName {
@@ -361,6 +422,16 @@ tr {
     position: relative;
     border-radius: 30px;
     padding: 36px;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: overlay;
+    scroll-behavior: smooth;
+
+}
+
+.detailsRightSideSections {
+    margin-bottom: 36px;
+    align-items: center;
 }
 
 .statsTable {
@@ -374,138 +445,26 @@ tr {
 
 .firstEvolutionImg {
     height: 80px;
-    position: absolute;
-    left: 36px;
-    top: 36px;
 }
 
-.secondEvolutionImg0 {
+.secondEvolutionImg {
     height: 80px;
-    position: absolute;
-    top: 36px;
-    right: 393px;
-}
-
-.secondEvolutionImg1 {
-    height: 80px;
-    position: absolute;
-    top: 149px;
-    right: 393px;
-}
-
-.secondEvolutionImg2 {
-    height: 80px;
-    position: absolute;
-    top: 261px;
-    right: 393px;
-}
-
-.secondEvolutionImg3 {
-    height: 80px;
-    position: absolute;
-    top: 373px;
-    right: 393px;
-}
-
-.secondEvolutionImg4 {
-    height: 80px;
-    position: absolute;
-    top: 96px;
-    right: 186px;
-    ;
-}
-
-.secondEvolutionImg5 {
-    height: 80px;
-    position: absolute;
-    top: 214px;
-    right: 186px;
-    ;
-}
-
-.secondEvolutionImg6 {
-    height: 80px;
-    position: absolute;
-    top: 324px;
-    right: 186px;
-}
-
-.secondEvolutionImg7 {
-    height: 80px;
-    position: absolute;
-    top: 373px;
-    left: 36px;
 }
 
 .thirdEvolutionImg {
     height: 80px;
-    position: absolute;
-    top: 36px;
-    right: 36px;
 }
 
-.evolutionFirstArrow0 {
+.evolutionFirstArrow {
     height: 30px;
-    position: absolute;
-    top: 61px;
-    left: 226px
+    margin: 25px;
+
 }
 
-.evolutionFirstArrow1 {
-    height: 30px;
-    position: absolute;
-    top: 171px;
-    left: 226px;
-}
 
-.evolutionFirstArrow2 {
+.secondEvolutionArrow {
     height: 30px;
-    position: absolute;
-    top: 281px;
-    left: 226px;
-}
-
-.evolutionFirstArrow3 {
-    height: 30px;
-    position: absolute;
-    top: 391px;
-    left: 226px;
-}
-
-.evolutionFirstArrow4 {
-    height: 30px;
-    position: absolute;
-    top: 117px;
-    left: 380px;
-}
-
-.evolutionFirstArrow5 {
-    height: 30px;
-    position: absolute;
-    top: 230px;
-    left: 380px;
-}
-
-.evolutionFirstArrow6 {
-    height: 30px;
-    position: absolute;
-    top: 342px;
-    left: 380px;
-}
-
-.evolutionFirstArrow7 {
-    height: 30px;
-    position: absolute;
-    top: 230px;
-    left: 46px;
-    transform: rotate(90deg);
-}
-
-.secondEvolutionArrow0 {
-    height: 30px;
-    position: absolute;
-    top: 61px;
-    right: 226px;
+    margin: 25px;
 }
 
 .firstEvolutionLevel {
@@ -819,68 +778,18 @@ tr {
         height: 8px !important;
     }
 
-    .secondEvolutionImg0 {
+    .secondEvolutionImg {
         right: 135px;
     }
 
-    .secondEvolutionImg1 {
-        right: 135px;
+    .evolutionFirstArrow {
+        height: 8px;
+        margin: 0;
     }
 
-    .secondEvolutionImg2 {
-        right: 135px;
-    }
-
-    .secondEvolutionImg3 {
-        right: 135px;
-    }
-
-    .secondEvolutionImg4 {
-        right: 48px;
-    }
-
-    .secondEvolutionImg5 {
-        right: 48px;
-    }
-
-    .secondEvolutionImg6 {
-        right: 48px;
-    }
-
-    .evolutionFirstArrow0 {
-        display: none;
-    }
-
-    .evolutionFirstArrow1 {
-        display: none;
-    }
-
-    .evolutionFirstArrow2 {
-        display: none;
-    }
-
-    .evolutionFirstArrow3 {
-        display: none;
-    }
-
-    .evolutionFirstArrow4 {
-        display: none;
-    }
-
-    .evolutionFirstArrow5 {
-        display: none;
-    }
-
-    .evolutionFirstArrow6 {
-        display: none;
-    }
-
-    .evolutionFirstArrow7 {
-        display: none;
-    }
-
-    .secondEvolutionArrow0 {
-        display: none;
+    .secondEvolutionArrow {
+        height: 8px;
+        margin: 0;
     }
 }
 
@@ -911,42 +820,11 @@ tr {
 
     .detailsRightSide {
         height: 454px;
+        padding: 16px;
     }
 
     .firstEvolutionImg {
         top: 6px;
-    }
-
-    .secondEvolutionImg0 {
-        top: 6px;
-    }
-
-    .secondEvolutionImg1 {
-        top: 119px;
-    }
-
-    .secondEvolutionImg2 {
-        top: 231px;
-    }
-
-    .secondEvolutionImg3 {
-        top: 343px;
-    }
-
-    .secondEvolutionImg4 {
-        top: 66px;
-    }
-
-    .secondEvolutionImg5 {
-        top: 184px;
-    }
-
-    .secondEvolutionImg6 {
-        top: 294px;
-    }
-
-    .secondEvolutionImg7 {
-        top: 343px;
     }
 
     .thirdEvolutionImg {
@@ -969,45 +847,13 @@ tr {
         height: 40px;
     }
 
-    .secondEvolutionImg0 {
+    .secondEvolutionImg {
         height: 40px;
         right: 90px;
     }
 
-    .secondEvolutionImg1 {
+    .thirdEvolutionImg {
         height: 40px;
-        right: 90px;
-    }
-
-    .secondEvolutionImg2 {
-        height: 40px;
-        right: 90px;
-    }
-
-    .secondEvolutionImg3 {
-        height: 40px;
-        right: 90px;
-    }
-
-    .secondEvolutionImg4 {
-        height: 40px;
-        right: 48px;
-    }
-
-    .secondEvolutionImg5 {
-        height: 40px;
-        right: 48px;
-    }
-
-    .secondEvolutionImg6 {
-        height: 40px;
-
-        right: 48px;
-    }
-
-    .secondEvolutionImg7 {
-        height: 40px;
-        top: 343px;
     }
 
     h4 {
@@ -1020,6 +866,7 @@ tr {
 
     .detailsRightSide {
         padding: 8px;
+        height: 415px;
     }
 
     .statsName {
@@ -1045,5 +892,9 @@ tr {
     .titleScreen {
         position: absolute;
         top: 115px;
+    }
+
+    .displayFlexJustifyContent {
+        align-items: center;
     }
 }

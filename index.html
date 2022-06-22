@@ -7,8 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokédex</title>
     <script src="script.js"></script>
+    <script src="fullscreen.js"></script>
     <script src="evolution.js"></script>
     <script src="background.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="fonts.css">
     <!-- CSS only -->
@@ -21,18 +23,17 @@
     <link rel="shortcut icon" href="img/pokeball.png" type="image/x-icon">
 </head>
 
-<body onload="loadApis()" id="body">
+<body onload="loadAll()" id="body">
+
+
 
     <header>
         <h1 style="font-family: 'Bowlby One SC' !important;">PokéDex</h1>
-        <input type="text" oninput="searchNames()" class="searchBar dNone" id="search" placeholder="Search by name">
-        <div class="progressBar" id="progressBar">
-            <p style="color: black !important;">loading search bar...</p>
-            <p class="placeholder-glow">
+        <div class="searchArea">
+            <input type="text" oninput="searchNames()" class="searchBar" id="search" placeholder="Search by name">
+            <div class="outputSearchPoke" id="outputSearchPoke" style="border-radius: 15px;">
+            </div>
 
-                <span class="placeholder col-12" style="color: black;
-                border-radius: 30px;"></span>
-            </p>
         </div>
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
@@ -47,19 +48,18 @@
         </div>
     </header>
 
-
     <div id="main">
         <div id="pokemonList"></div>
         <div class="pokemonBackground">
             <div class="titleScreen" id="titleScreen">
                 <h1>PokéDex</h1>
-                <h2 onclick="loadingScreen()">load Pokémon</h2>
+                <h2 onclick="clearPage()">click to load Pokémon</h2>
             </div>
             <img src="img/pikachu.gif" alt="" style="cursor: context-menu;" class="dNone" id="loadingScreen">
         </div>
     </div>
     </div>
-    <div id="fullscreen" class="dNone" style="z-index: 7;">
+    <div id="fullscreen" class="dNone" style="z-index: 7; cursor: pointer;">
 
     </div>
 

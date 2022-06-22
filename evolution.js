@@ -6,6 +6,10 @@ function noEvolution() {
     return currentEvolution['chain']['evolves_to'][0] == undefined;
 }
 
+function noSecondEvolution() {
+    currentEvolution['chain']['evolves_to'][0]['evolves_to'][0] == undefined;
+}
+
 function firstEvolutionByLevelUp() {
     return currentEvolution['chain']['evolves_to'][0]['evolution_details'][0]['trigger']['name'] == 'level-up';
 }
@@ -34,19 +38,101 @@ function moreEvolutions() {
     return currentEvolution['chain']['evolves_to'].length > 1;
 }
 
-function firstEvolutionLenght() {
-    return currentEvolution['chain']['evolves_to'].length
+function moreEvolutionsTwo() {
+    return currentEvolution['chain']['evolves_to'][0]['evolves_to'];
 }
 
+function firstEvolutionLenght() {
+    return currentEvolution['chain']['evolves_to'].length;
+}
+
+function secondEvolutionLenght() {
+    return currentEvolution['chain']['evolves_to'][0]['evolves_to'].length;
+}
 /*
 #################################################################################
 Evolution
 #################################################################################
 */
 
+
+function renderEvolutionSection() {
+    let evolutionSection = document.getElementById('evolutionSection');
+    evolutionSection.innerHTML = `
+    <div class="displayFlexJustifyContent" style="flex-direction: column;" id="pokemonOne"></div>
+    <div class="displayFlexJustifyContent" style="flex-direction: column;" id="firstEvolutionTrigger"></div>
+    <div class="displayFlexJustifyContent" style="flex-direction: column;" id="pokemonTwo" class="secondEvolutionImg"></div>
+    <div class="displayFlexJustifyContent" style="flex-direction: column;" id="secondEvolutionTrigger"></div>
+    <div class="displayFlexJustifyContent" style="flex-direction: column;" id="pokemonThree" class="secondEvolutionImg"></div>
+    `
+    showFirstEvolution()
+}
+
+async function showFirstEvolution() {
+    pokemonFirstEvolution = currentEvolution['chain']['species']['name'];
+    firstEvolutionImgUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonFirstEvolution}/`
+    firstEvolutionImg = firstEvolutionImgUrl
+    responseFirstEvolution = await fetch(firstEvolutionImg);
+    currentFirstEvolution = await responseFirstEvolution.json();
+    let evolutionFirstImg = currentFirstEvolution['sprites']['other']['home']['front_default'];
+
+    let pokemonOne = document.getElementById('pokemonOne');
+    pokemonOne.innerHTML = `
+    <img class="firstEvolutionImg" src="${evolutionFirstImg}">
+    `
+    await showSecondEvolution()
+
+}
+
+async function showSecondEvolution() {
+    if (!noEvolution()) {
+        for (let i = 0; i < firstEvolutionLenght(); i++) {
+            pokemonSecondEvolution = currentEvolution['chain']['evolves_to'][i]['species']['name'];
+            secondEvolutionImgUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonSecondEvolution}/`
+            secondEvolutionImg = secondEvolutionImgUrl
+            responseSecondEvolution = await fetch(secondEvolutionImg);
+            currentSecondEvolution = await responseSecondEvolution.json();
+            let evolutionSecondImg = currentSecondEvolution['sprites']['other']['home']['front_default'];
+            let firstEvolutionTrigger = document.getElementById('firstEvolutionTrigger');
+            let pokemonTwo = document.getElementById('pokemonTwo');
+            firstEvolutionTrigger.innerHTML += `
+                <img src="img/aarrow.png" class="evolutionFirstArrow" >
+                    `
+            pokemonTwo.innerHTML += `
+                <img style="height: 80px;" src="${evolutionSecondImg}">
+        `;
+        }
+        await showThirdEvolution()
+    }
+}
+
+async function showThirdEvolution() {
+    if (!noSecondEvolution()) {
+        for (let j = 0; j < secondEvolutionLenght(); j++) {
+            pokemonThirdEvolution = currentEvolution['chain']['evolves_to'][0]['evolves_to'][j]['species']['name'];
+            thirdEvolutionImgUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonThirdEvolution}/`
+            thirdEvolutionImg = thirdEvolutionImgUrl
+            responseThirdEvolution = await fetch(thirdEvolutionImg);
+            currentThirdEvolution = await responseThirdEvolution.json();
+            let evolutionThirdImg = currentThirdEvolution['sprites']['other']['home']['front_default'];
+            let secondEvolutionTrigger = document.getElementById('secondEvolutionTrigger');
+            let pokemonThree = document.getElementById('pokemonThree');
+            secondEvolutionTrigger.innerHTML += `
+                <img src="img/aarrow.png" class="evolutionFirstArrow" >
+                    `
+            pokemonThree.innerHTML += `
+                <img style="height: 80px;" src="${evolutionThirdImg}">
+        `;
+        }
+    }
+}
+
 function babyPokemon(i) {
     if (baby()) {
-        if (firstEvolutionByLevelUp) {
+        if (moreEvolutions()) {
+            moreFirstEvolution()
+        }
+        if (firstEvolutionByLevelUp && !moreEvolutions()) {
             basePokemon()
         }
     } else {
@@ -56,18 +142,19 @@ function babyPokemon(i) {
 
 function basePokemon(i) {
     if (noEvolution()) {
-        let detailsRightSide = document.getElementById('detailsRightSide');
+        let evolutionSection = document.getElementById('evolutionSection');
+
         let pokemonImg = allPokemonData[i]['sprites']['other']['home']['front_default']
-        detailsRightSide.innerHTML = `<img style="height: 200px;"src="${pokemonImg}">`;
+        evolutionSection.innerHTML = `<img style="height: 80px;"src="${pokemonImg}">`;
     } else {
-        if (firstEvolutionByLevelUp()) {
+        if (firstEvolutionByLevelUp() && !moreEvolutions()) {
             oneEvolution()
 
             firstEvolution()
-        } if (firstEvolutionByItem()) {
+        } if (firstEvolutionByItem() && !moreEvolutions()) {
             oneEvolution()
             firstEvolution()
-        } if (firstEvolutionByTrade()) {
+        } if (firstEvolutionByTrade() && !moreEvolutions()) {
             oneEvolution()
             firstEvolution()
         } if (moreEvolutions()) {
@@ -80,12 +167,15 @@ async function firstEvolution() {
     if (currentEvolution['chain']['evolves_to'][0]['evolves_to'][0] == undefined) {
 
     } else {
-        if (secondEvolutionByLevelUp()) {
-            twoEvolution() 
-        } if (secondEvolutionByItem()) {
-            twoEvolution() 
-        } if (secondEvolutionByTrade()) {
-            twoEvolution() 
+        if (moreEvolutionsTwo()) {
+            moreSecondEvolution()
+        }
+        if (secondEvolutionByLevelUp() && !moreEvolutionsTwo()) {
+            twoEvolution()
+        } if (secondEvolutionByItem() && !moreEvolutionsTwo()) {
+            twoEvolution()
+        } if (secondEvolutionByTrade() && !moreEvolutionsTwo()) {
+            twoEvolution()
         }
     }
 }
@@ -98,109 +188,7 @@ async function loadEvolution(i) {
     evolutionUrl = currentSpecies['evolution_chain']['url'];
     responseEvolution = await fetch(evolutionUrl);
     currentEvolution = await responseEvolution.json();
-    let detailsRightSide = document.getElementById('detailsRightSide');
-    detailsRightSide.innerHTML = ``;
-    babyPokemon(i)
-}
-
-async function oneEvolution() {
-    pokemonFirstEvolution = currentEvolution['chain']['species']['name'];
-
-    firstEvolutionImgUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonFirstEvolution}/`
-    firstEvolutionImg = firstEvolutionImgUrl
-
-    pokemonSecondEvolution = currentEvolution['chain']['evolves_to'][0]['species']['name'];
-
-    secondEvolutionImgUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonSecondEvolution}/`
-    secondEvolutionImg = secondEvolutionImgUrl
-
-    responseFirstEvolution = await fetch(firstEvolutionImg);
-    currentFirstEvolution = await responseFirstEvolution.json();
-    let evolutionFirstImg = currentFirstEvolution['sprites']['other']['home']['front_default'];
-
-    responseSecondEvolution = await fetch(secondEvolutionImg);
-    currentSecondEvolution = await responseSecondEvolution.json();
-    let evolutionSecondImg = currentSecondEvolution['sprites']['other']['home']['front_default'];
-
-    let detailsRightSide = document.getElementById('detailsRightSide');
-    detailsRightSide.innerHTML = `
-                <div id="firstEvolutionTrigger"></div>
-                <div id="secondEvolutionTrigger"></div>
-                <img class="firstEvolutionImg" src="${evolutionFirstImg}">
-                <img src="img/aarrow.png" class="evolutionFirstArrow0">
-                <img class="secondEvolutionImg0" src="${evolutionSecondImg}">
-                `
-    return;
-}
-
-async function twoEvolution() {
-    pokemonFirstEvolution = currentEvolution['chain']['species']['name'];
-    pokemonSecondEvolution = currentEvolution['chain']['evolves_to'][0]['species']['name'];
-    pokemonThirdEvolution = currentEvolution['chain']['evolves_to'][0]['evolves_to'][0]['species']['name'];
-
-    firstEvolutionImgUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonFirstEvolution}/`
-    firstEvolutionImg = firstEvolutionImgUrl
-
-    secondEvolutionImgUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonSecondEvolution}/`
-    secondEvolutionImg = secondEvolutionImgUrl
-
-    thirdEvolutionImgUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonThirdEvolution}/`
-    thirdEvolutionImg = thirdEvolutionImgUrl
-
-    responseFirstEvolution = await fetch(firstEvolutionImg);
-    currentFirstEvolution = await responseFirstEvolution.json();
-    let evolutionFirstImg = currentFirstEvolution['sprites']['other']['home']['front_default'];
-
-    responseSecondEvolution = await fetch(secondEvolutionImg);
-    currentSecondEvolution = await responseSecondEvolution.json();
-    let evolutionSecondImg = currentSecondEvolution['sprites']['other']['home']['front_default'];
-
-    responseThirdEvolution = await fetch(thirdEvolutionImg);
-    currentThirdEvolution = await responseThirdEvolution.json();
-    let evolutionThirdImg = currentThirdEvolution['sprites']['other']['home']['front_default'];
-
-    let detailsRightSide = document.getElementById('detailsRightSide');
-    detailsRightSide.innerHTML = `
-        <div id="firstEvolutionTrigger"></div>
-        <div id="secondEvolutionTrigger"></div>
-        <img class="firstEvolutionImg" src="${evolutionFirstImg}">
-        <img src="img/aarrow.png" class="evolutionFirstArrow0">
-        <img class="secondEvolutionImg0" src="${evolutionSecondImg}">
-        <img src="img/aarrow.png" class="secondEvolutionArrow0">
-        <img class="thirdEvolutionImg" src="${evolutionThirdImg}">
-    `
-    return;
-}
-
-
-async function moreFirstEvolution() {
-    pokemonFirstEvolution = currentEvolution['chain']['species']['name'];
-    firstEvolutionImgUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonFirstEvolution}/`
-    firstEvolutionImg = firstEvolutionImgUrl
-    responseFirstEvolution = await fetch(firstEvolutionImg);
-    currentFirstEvolution = await responseFirstEvolution.json();
-    let evolutionFirstImg = currentFirstEvolution['sprites']['other']['home']['front_default'];
-   
-    let detailsRightSide = document.getElementById('detailsRightSide');
-    detailsRightSide.innerHTML = `
-    <div id="firstEvolutionTrigger"></div>
-    <div id="secondEvolutionTrigger"></div>
-    <img class="firstEvolutionImg" src="${evolutionFirstImg}">`
-
-    for (let i = 0; i < firstEvolutionLenght(); i++) {
-        pokemonSecondEvolution = currentEvolution['chain']['evolves_to'][i]['species']['name'];
-        secondEvolutionImgUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonSecondEvolution}/`
-        secondEvolutionImg = secondEvolutionImgUrl
-        responseSecondEvolution = await fetch(secondEvolutionImg);
-        currentSecondEvolution = await responseSecondEvolution.json();
-        let evolutionSecondImg = currentSecondEvolution['sprites']['other']['home']['front_default'];
-
-        detailsRightSide.innerHTML += `
-                    <img src="img/aarrow.png" class="evolutionFirstArrow${i}">
-                    <img class="secondEvolutionImg${i}" src="${evolutionSecondImg}">
-                    `
-
-    }
-
-    return;
+    let evolutionSection = document.getElementById('evolutionSection');
+    evolutionSection.innerHTML = ``;
+    renderEvolutionSection(i)
 }
