@@ -1,45 +1,3 @@
-async function searchNames() {
-
-    let search = document.getElementById('search');
-    search.value = search.value.toLowerCase();
-    console.log(search.value);
-    let outputSearchPoke = document.getElementById('outputSearchPoke');
-    currentPokemon = 0;
-
-    if (search.value.length >= 3) {
-
-        outputSearchPoke.innerHTML = "";
-
-        for (let i = 0; i < allPokemonSpecies[0].length; i++) {
-            let pokemonName = allPokemonSpecies[0][i]['name'];
-
-            if (pokemonName.toLowerCase().startsWith(search.value)) {
-
-                searchUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonName}/`;
-                let responsePokemon = await fetch(searchUrl);
-                currentPokemon = await responsePokemon.json();
-
-                let type = currentPokemon['types'][0]['type']['name'];
-
-                let pokemonId = (i + 1);
-                let pokemonImg = currentPokemon['sprites']['versions']['generation-viii']['icons']['front_default'];
-
-
-                outputSearchPoke.innerHTML += `<div class="displayFlexJustifyContentAlignitemsEnd searchResult" id="pokemonSearch${i}" onclick="openFullscreen(${i})">
-                <img src="${pokemonImg}">
-                <p>${pokemonName}</p>
-                <p>#${pokemonId}</p>
-                </div>`;
-                renderSearchBackground(i, type)
-            }
-        }
-    }
-
-    if (search.value.length == 0) {
-        outputSearchPoke.innerHTML = ``;
-    }
-}
-
 
 
 /*
@@ -47,32 +5,18 @@ async function searchNames() {
 Local Variable
 #################################################################################
 */
+let allPokemonSpecies = [];
+let allPokemonData = [];
 
 let statNames = [];
 let baseStats = [];
 
 let currentAbout;
-let currentBaseValue;
-let allPokemonSpecies = [];
-let allPokemonImg = []
-let allPokemonData = [];
-let evolutionChain = [];
-let loaded = false;
-let apis = false;
-let searching = false;
-let url;
-let response;
 let currentPokemon;
-let evolutionUrl;
-let responseEvolution;
 let currentEvolution;
 let pokemonNames;
 let currentSpecies;
-let speciesUrl;
-let evolutionTrigger;
-let firstEvolutionTrigger;
-let secondEvolutionTrigger;
-let typeUrl;
+
 /* for loadMore function */
 let counter = 0;
 let newPokemon = 0;
@@ -89,8 +33,7 @@ async function clearPage() {
     let pokemonList = document.getElementById('pokemonList');
     let titleScreen = document.getElementById('titleScreen')
     pokemonList.innerHTML = "";
-    titleScreen.classList.add('dNone')
-    loadSearchBar()
+    titleScreen.classList.add('dNone');
     init();
 }
 
@@ -118,15 +61,6 @@ Load pokemon with name, type, id, image and layout
 #################################################################################
 */
 
-function loadSearchBar() {
-    if (loaded == true && apis == true) {
-        let progressBar = document.getElementById('progressBar');
-        let searchBar = document.getElementById('search')
-        progressBar.classList.add('dNone');
-        searchBar.classList.remove('dNone')
-    }
-}
-
 /*
 #################################################################################
 Load pokemon with name, type, id, image and layout
@@ -135,8 +69,8 @@ Load pokemon with name, type, id, image and layout
 
 
 async function loadAll() {
-    speciesUrl = `https://pokeapi.co/api/v2/pokemon?offset=0&limit=898`
-    responseSpecies = await fetch(speciesUrl);
+    let speciesUrl = `https://pokeapi.co/api/v2/pokemon?offset=0&limit=898`
+    let responseSpecies = await fetch(speciesUrl);
     currentSpecies = await responseSpecies.json();
     allPokemonSpecies.push(currentSpecies['results']);
 }

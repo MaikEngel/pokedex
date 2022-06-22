@@ -95,8 +95,8 @@ Render name, type, id & menubar
 
 
 async function renderFullscreenName(i, currentAbout) {
-    speciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${i + 1}/`
-    responseSpecies = await fetch(speciesUrl);
+    let speciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${i + 1}/`
+    let responseSpecies = await fetch(speciesUrl);
     currentSpecies = await responseSpecies.json();
     let pokemonName = document.getElementById('pokemonName')
     pokemonNames = currentSpecies['name'];

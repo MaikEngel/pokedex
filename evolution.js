@@ -182,11 +182,11 @@ async function firstEvolution() {
 
 async function loadEvolution(i) {
 
-    speciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${i + 1}/`
-    responseSpecies = await fetch(speciesUrl);
-    currentSpecies = await responseSpecies.json();
-    evolutionUrl = currentSpecies['evolution_chain']['url'];
-    responseEvolution = await fetch(evolutionUrl);
+    let speciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${i + 1}/`
+    let responseSpecies = await fetch(speciesUrl);
+    let currentSpecies = await responseSpecies.json();
+    let evolutionUrl = currentSpecies['evolution_chain']['url'];
+    let responseEvolution = await fetch(evolutionUrl);
     currentEvolution = await responseEvolution.json();
     let evolutionSection = document.getElementById('evolutionSection');
     evolutionSection.innerHTML = ``;
