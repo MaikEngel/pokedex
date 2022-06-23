@@ -150,7 +150,8 @@ async function renderMenu(i) {
     <a class="infoButtonsDetails" href="#baseValueSection">Base value</a> 
     <p>|</p>             
     <a class="infoButtonsDetails" href="#evolutionSection">Evolution</a>
-
+    <p>|</p>             
+    <a class="infoButtonsDetails" href="#shinySection">Shiny</a>
     `
 }
 
@@ -177,11 +178,16 @@ async function renderFullscreenSections(i, currentAbout) {
         <h2>Evolution</h2>
         <div class="detailsRightSideSections displayFlexJustifyContent" id="evolutionSection"></div>
     </div>
+    <div style="margin-bottom: 16px;">
+    <h2>Shiny</h2>
+        <div class="detailsRightSideSections displayFlexJustifyContent" id="shinySection"></div>
+    </div>
 
     `;
     await renderAbout(i, currentAbout);
     await renderBaseValue(currentAbout);
     await loadEvolution(i, currentAbout);
+    await loadShiny(currentAbout)
 }
 
 function renderAbout(i, currentAbout) {
@@ -307,6 +313,14 @@ function loadChart() {
         document.getElementById('myChart'),
         config
     );
+}
+
+
+function loadShiny(currentAbout) {
+    let shinySection = document.getElementById('shinySection');
+    let shinyImg = currentAbout['sprites']['other']['home']['front_shiny']
+    shinySection.innerHTML = `<img style="height: 220px" src="${shinyImg}" class="shinyPokemon">`;
+    
 }
 
 /*

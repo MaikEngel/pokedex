@@ -15,6 +15,7 @@ let currentSpecies;
 let counter = 0;
 let newPokemon = 0;
 let request = true;
+let loading = true;
 
 
 /*
@@ -26,9 +27,12 @@ Clear the pokemonlist
 async function clearPage() {
     let pokemonList = document.getElementById('pokemonList');
     let titleScreen = document.getElementById('titleScreen');
+    let loadingScreen = document.getElementById('loadingScreen');
     pokemonList.innerHTML = "";
     titleScreen.classList.add('dNone');
-    init();
+    pokemonList.classList.add('dNone');
+    loadingScreen.classList.remove('dNone')
+    init(loadingScreen);
 }
 
 /*
@@ -45,20 +49,29 @@ async function loadAll() {
 }
 
 
-async function init() {
+async function init(loadingScreen) {
+    let pokemonList = document.getElementById('pokemonList');
     if (counter <= 898) {
-        let pokemonList = document.getElementById('pokemonList');
         for (let i = newPokemon; i < newPokemon + 20; i++) {
-            let pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${i + 1}/`;
-            let responsePokemon = await fetch(pokemonUrl);
-            currentPokemon = await responsePokemon.json();
-            renderPokemonList(currentPokemon, i, pokemonList)
-            renderType(i)
+            await loadPokemon(pokemonList, i)
+        }
+        if (loading == true) {
+            loadingScreen.classList.add('dNone');
+            pokemonList.classList.remove('dNone');
         }
         request = true;
+        loading = false;
         return;
     }
 }
+
+async function loadPokemon(pokemonList, i) {
+    let pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${i + 1}/`;
+    let responsePokemon = await fetch(pokemonUrl);
+    currentPokemon = await responsePokemon.json();
+    renderPokemonList(currentPokemon, i, pokemonList)
+    renderType(i)
+} 
 
 /*
 #################################################################################
@@ -66,7 +79,7 @@ Render the first 20 Pokemon
 #################################################################################
 */
 
-async function renderPokemonList(currentPokemon, i, pokemonList) {
+function renderPokemonList(currentPokemon, i, pokemonList) {
     let pokemonName = currentPokemon['name'];
     let pokemonImg = currentPokemon['sprites']['other']['home']['front_default'];
     let pokemonId = currentPokemon['id'];

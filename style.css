@@ -62,7 +62,7 @@ tr {
 }
 
 .dNone {
-    display: none;
+    display: none !important;
 }
 
 /*
@@ -219,6 +219,14 @@ Title screen
 Main section
 #################################################################################
 */
+
+.loadingScreen {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 8;
+    height: 150px;
+}
 
 #main {
     margin-top: 92px;
@@ -666,6 +674,7 @@ Background in fullscreen view
     background-image: url('img/normal.jpg');
     background-repeat: no-repeat;
     background-position: center;
+    background-size: cover;
 
 }
 
@@ -673,101 +682,118 @@ Background in fullscreen view
     background-image: url('img/grass.jpg');
     background-repeat: no-repeat;
     background-position: center;
+    background-size: cover;
 }
 
 .pokemonBackgroundFireDetails {
     background-image: url('img/fire.jpg');
     background-repeat: no-repeat;
     background-position: center;
+    background-size: cover;
 }
 
 .pokemonBackgroundWaterDetails {
     background-image: url('img/water.jpg');
     background-repeat: no-repeat;
     background-position: center;
+    background-size: cover;
 }
 
 .pokemonBackgroundElectricDetails {
     background-image: url('img/electric.jpg');
     background-repeat: no-repeat;
     background-position: center;
+    background-size: cover;
 }
 
 .pokemonBackgroundFightDetails {
     background-image: url('img/fight.jpg');
     background-repeat: no-repeat;
     background-position: center;
+    background-size: cover;
 }
 
 .pokemonBackgroundFlyingDetails {
     background-image: url('img/flying.jpg');
     background-repeat: no-repeat;
     background-position: center;
+    background-size: cover;
 }
 
 .pokemonBackgroundPoisonDetails {
     background-image: url('img/poison.jpg');
     background-repeat: no-repeat;
     background-position: center;
+    background-size: cover;
 }
 
 .pokemonBackgroundGroundDetails {
     background-image: url('img/ground.jpg');
     background-repeat: no-repeat;
     background-position: center;
+    background-size: cover;
 }
 
 .pokemonBackgroundRockDetails {
     background-image: url('img/rock.jpg');
     background-repeat: no-repeat;
     background-position: center;
+    background-size: cover;
 }
 
 .pokemonBackgroundBugDetails {
     background-image: url('img/bug.jpg');
     background-repeat: no-repeat;
     background-position: center;
+    background-size: cover;
 }
 
 .pokemonBackgroundGhostDetails {
     background-image: url('img/ghost.jpg');
     background-repeat: no-repeat;
     background-position: center;
+    background-size: cover;
 }
 
 .pokemonBackgroundSteelDetails {
     background-image: url('img/steel.jpg');
     background-repeat: no-repeat;
     background-position: center;
+    background-size: cover;
 }
 
 .pokemonBackgroundPsychicDetails {
     background-image: url('img/psychic.jpg');
     background-repeat: no-repeat;
     background-position: center;
+    background-size: cover;
 }
 
 .pokemonBackgroundIceDetails {
     background-image: url('img/ice.jpg');
     background-repeat: no-repeat;
     background-position: center;
+    background-size: cover;
 }
 
 .pokemonBackgroundDragonDetails {
     background-image: url('img/dragon.jpg');
     background-repeat: no-repeat;
     background-position: center;
+    background-size: cover;
 }
 
 .pokemonBackgroundDarkDetails {
     background-image: url('img/dark.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+    background-size: cover;
 }
 
 .pokemonBackgroundFairyDetails {
     background-image: url('img/fairy.jpg');
     background-repeat: no-repeat;
+    background-size: cover;
     background-size: cover;
 }
 
@@ -791,9 +817,6 @@ Responsive
         width: -webkit-fill-available;
     }
 
-    .statsTable {
-        width: 295px !important;
-    }
 
     .statsName {
         width: 175px;
@@ -819,6 +842,11 @@ Responsive
 }
 
 @media (max-width: 768px) {
+
+    .detailsImg {
+        display: none;
+    }
+
     header h1 {
         display: none;
     }
@@ -858,6 +886,28 @@ Responsive
 }
 
 @media (max-width: 480px) {
+
+    #myChart {
+        width: 190px !important;
+        height: 190px !important;
+    }
+
+    .closeButton {
+        right: 10px;
+    }
+
+    .evolutionImg {
+        height: 50px;
+    }
+
+    .shinyPokemon {
+        height: 180px !important;
+    }
+
+    .fullscreenArrow {
+        display: none;
+    }
+
     .detailsImg {
         display: none;
     }
@@ -865,7 +915,6 @@ Responsive
     .pokemonDetails {
         width: 250px;
     }
-
 
     .firstEvolutionImg {
         height: 40px;
@@ -897,10 +946,6 @@ Responsive
         width: 123px;
     }
 
-    .statsTable {
-        width: 201px !important;
-    }
-
     .pokemonName {
         flex-wrap: wrap;
     }
@@ -914,11 +959,14 @@ Responsive
     }
 
     .titleScreen {
-        position: absolute;
         top: 115px;
     }
 
     .displayFlexJustifyContent {
         align-items: center;
+    }
+
+    .searchBar {
+        width: 185px;
     }
 }

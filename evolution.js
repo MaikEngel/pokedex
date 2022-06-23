@@ -122,7 +122,7 @@ async function showSecondEvolution() {
                 <img src="img/aarrow.png" class="evolutionArrow" >
                     `
             pokemonTwo.innerHTML += `
-                <img style="height: 80px;" src="${evolutionSecondImg}">
+                <img class="evolutionImg" src="${evolutionSecondImg}">
         `;
         }
         await showThirdEvolution()
@@ -145,7 +145,7 @@ async function showThirdEvolution() {
                 <img src="img/aarrow.png" class="evolutionArrow" >
                     `
             pokemonThree.innerHTML += `
-                <img style="height: 80px;" src="${evolutionThirdImg}">
+                <img class="evolutionImg" src="${evolutionThirdImg}">
         `;
         }
     }
