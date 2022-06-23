@@ -11,7 +11,6 @@ function openFullscreen(i) {
     pokemonDetails.classList.remove('dNone')
 
     renderFullscreenLayout(i)
-    renderFullscreenImage(i)
     document.getElementById('body').classList.add('hideScrollbar');
 }
 
@@ -36,28 +35,40 @@ function renderFullscreenLayout(i) {
     let pokemonDetails = document.getElementById('fullscreen')
     pokemonDetails.innerHTML = ``;
     pokemonDetails.innerHTML = fullscreenLayout(i);
+    renderFullscreenImage(i)
 }
 
 function fullscreenLayout(i) {
     return `
-    <div class="pokemonDetailsLayout" id="pokemonDetails${i}" onclick="closeFullscreen()">
-        <div id="detailsImg">
-            <div id="details">
+            <div class="pokemonDetailsLayout" id="pokemonDetails${i}">
+            <div class="pokemonDetailsLayoutFullsscreen">
+                <div class="fullscreenArrow">
+                    <img src="img/arrow_back.png" onclick="showLast(${i - 1})">
+                </div>
+                <div id="detailsImg">
+                    <div id="details">
+                    </div>
+                </div>
+                <div id="detailsBackgroundColor${i}" class="pokemonDetails">
+                    <div class="pokemonDetailsLayoutRight">
+                        <div class="pokemonName" id="pokemonName">
+                        </div>
+                        <div id="detailsInfos" class="detailsInfo">
+                        </div>
+                        <div id="detailsRightSide" class="detailsRightSide">
+                            <div id="firstEvolutionTrigger"></div>
+                                <div id="secondEvolutionTrigger"></div>
+                         </div>
+                    </div>
+                </div>
+                <div style="margin: 16px;" class="fullscreenArrow">
+                    <img src="img/arrow_forward.png" onclick="showNext(${i + 1})">
+                </div>
+                <div class="closeButton">
+                    <img src="img/close.png" onclick="closeFullscreen()" >
+                </div>
+                </div>
             </div>
-        </div>
-        <div id="detailsBackgroundColor${i}" class="pokemonDetails" onclick="doNotClose(event)">
-            <div class="pokemonDetailsLayoutRight">
-                <div class="pokemonName" id="pokemonName">
-                </div>
-                <div id="detailsInfos" class="detailsInfo">
-                </div>
-                <div id="detailsRightSide" class="detailsRightSide">
-                    <div id="firstEvolutionTrigger"></div>
-                    <div id="secondEvolutionTrigger"></div>
-                </div>
-            </div>
-        </div>
-    </div>
     `;
 }
 
@@ -71,19 +82,16 @@ async function renderFullscreenImage(i) {
     let pokemonImgUrl = `https://pokeapi.co/api/v2/pokemon/${i + 1}/`;
     let responsePokemon = await fetch(pokemonImgUrl);
     let currentPokemonImg = await responsePokemon.json();
-
     let aboutUrl = `https://pokeapi.co/api/v2/pokemon/${i + 1}/`;
     let responseAbout = await fetch(aboutUrl);
     currentAbout = await responseAbout.json();
-
     let pokemonImg = currentPokemonImg['sprites']['other']['home']['front_default']
     let detailsImg = document.getElementById('detailsImg');
     detailsImg.innerHTML = "";
     detailsImg.innerHTML = `
-    <img class="detailsImg" src="${pokemonImg}">
-`
-    renderFullscreenSections(i, currentAbout);
-    renderFullscreenName(i, currentAbout)
+    <img class="detailsImg" src="${pokemonImg}">`
+    await renderFullscreenSections(i, currentAbout);
+    await renderFullscreenName(i, currentAbout)
 }
 
 
@@ -104,9 +112,9 @@ async function renderFullscreenName(i, currentAbout) {
     pokemonName.innerHTML = `
     <h2>${pokemonNames}</h2>
     `;
-    renderFullscreenID(pokemonName, i, currentAbout)
-    renderFullscreenType(pokemonName, i, currentAbout)
-    renderMenu(i)
+    await renderFullscreenID(pokemonName, i, currentAbout)
+    await renderFullscreenType(pokemonName, i, currentAbout)
+    await renderMenu(i)
 }
 
 function renderFullscreenType(pokemonName, i, currentAbout) {
@@ -134,19 +142,22 @@ function renderFullscreenID(pokemonName,) {
     pokemonName.innerHTML += `<h3 style="order: 1;">#${pokemonId}</h3>`;
 }
 
-function renderMenu() {
-    let detailsInfos = document.getElementById('detailsInfos')
+async function renderMenu(i) {
     detailsInfos.innerHTML = `
-    <a class="infoButtonsDetails" href="#aboutSection">About</a>    
-    <a class="infoButtonsDetails" href="#baseValueSection">Base value</a>              
+
+    <a class="infoButtonsDetails" href="#aboutSection">About</a>
+    <p>|</p>   
+    <a class="infoButtonsDetails" href="#baseValueSection">Base value</a> 
+    <p>|</p>             
     <a class="infoButtonsDetails" href="#evolutionSection">Evolution</a>
+
     `
 }
 
 
 /*
 #################################################################################
-Load abilities and render the current about and abilities
+Load abilities and render the current about, abilities...
 #################################################################################
 */
 
@@ -154,12 +165,19 @@ async function renderFullscreenSections(i, currentAbout) {
     detailsRightSide = document.getElementById('detailsRightSide')
     detailsRightSide.innerHTML = ``;
     detailsRightSide.innerHTML = `
+    <div style="margin-bottom: 16px;">
+        <h2>About</h2>
+        <table class="detailsRightSideSections statsTable" id="aboutSection"></table>
     </div>
-    <table class="detailsRightSideSections statsTable" id="aboutSection"><h2>About</h2></table>
-    <table class="detailsRightSideSections statsTable" id="baseValueSection"><h2>Base Value</h2></table>
-    <div>
-    <h2>Evolution</h2>
-    <div class="detailsRightSideSections displayFlexJustifyContent" id="evolutionSection"></div>
+    <div style="margin-bottom: 16px;">
+        <h2>Base Value</h2>
+        <div class="detailsRightSideSections statsTable" id="baseValueSection"></div>
+    </div>
+    <div style="margin-bottom: 16px;">
+        <h2>Evolution</h2>
+        <div class="detailsRightSideSections displayFlexJustifyContent" id="evolutionSection"></div>
+    </div>
+
     `;
     await renderAbout(i, currentAbout);
     await renderBaseValue(currentAbout);
@@ -289,4 +307,27 @@ function loadChart() {
         document.getElementById('myChart'),
         config
     );
+}
+
+/*
+#################################################################################
+Load stats and render the current base value
+#################################################################################
+*/
+
+function showLast(i) {
+    if (i == -1) {
+        openFullscreen(897)
+    } else {
+        openFullscreen(i)
+    }
+    
+}
+
+function showNext(i) {
+    if (i == 898) {
+        openFullscreen(0)
+    } else {
+        openFullscreen(i)
+    }
 }

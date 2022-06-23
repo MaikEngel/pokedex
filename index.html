@@ -24,12 +24,10 @@
     <link rel="shortcut icon" href="img/pokeball.png" type="image/x-icon">
 </head>
 
-<body onload="loadAll()" id="body">
-
-
+<body onload="loadAll()" id="body" onscroll="scrollTopButton(); hitBottom()">
 
     <header>
-        <h1 style="font-family: 'Bowlby One SC' !important;">PokéDex</h1>
+        <h1 style="font-family: 'Bowlby One SC' !important;" onclick="location.reload()">PokéDex</h1>
         <div class="searchArea">
             <input type="text" oninput="searchNames()" class="searchBar" id="search" placeholder="Search by name">
             <div class="outputSearchPoke" id="outputSearchPoke" style="border-radius: 15px;">
@@ -49,22 +47,21 @@
         </div>
     </header>
 
+
     <div id="main">
+
         <div id="pokemonList"></div>
-        <div class="pokemonBackground">
+        <div class="">
             <div class="titleScreen" id="titleScreen">
                 <h1>PokéDex</h1>
                 <h2 onclick="clearPage()">click to load Pokémon</h2>
             </div>
-            <img src="img/pikachu.gif" alt="" style="cursor: context-menu;" class="dNone" id="loadingScreen">
         </div>
     </div>
+    <a href="#main" class="goTopArrow dNone" id="goTopArrow"><img src="img/top.png"></a>
     </div>
-    <div id="fullscreen" class="dNone" style="z-index: 7; cursor: pointer;">
-
+    <div id="fullscreen" style="z-index: 7;">
     </div>
-
-
 
 </body>
 
