@@ -19,7 +19,6 @@ let loading = true;
 /* for search function */
 let currentSearchedPokemon;
 
-
 /*
 #################################################################################
 Clear the pokemonlist
@@ -67,6 +66,7 @@ async function init(loadingScreen) {
     }
 }
 
+
 async function loadPokemon(pokemonList, i) {
     let pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${i + 1}/`;
     let responsePokemon = await fetch(pokemonUrl);
@@ -89,7 +89,6 @@ function renderPokemonList(currentPokemon, i, pokemonList) {
     pokemonList.innerHTML += loadLayout(i, pokemonName, pokemonImg, pokemonId);
     return;
 }
-
 
 
 function loadLayout(i, pokemonName, pokemonImg, pokemonId) {

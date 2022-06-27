@@ -142,10 +142,12 @@ function loadType(i) {
     ;
 }
 
+
 function renderFullscreenID(pokemonName) {
     let pokemonId = currentSpecies['id'];
     pokemonName.innerHTML += `<h3 style="order: 1;">#${pokemonId}</h3>`;
 }
+
 
 async function renderMenu() {
     detailsInfos.innerHTML = `
@@ -158,7 +160,6 @@ async function renderMenu() {
         <a class="infoButtonsDetails" href="#shinySection">Shiny</a>
     `
 }
-
 
 /*
 #################################################################################
@@ -199,6 +200,7 @@ async function renderFullscreenSections(i) {
     await loadEvolution(i);
 }
 
+
 function renderAbout(i) {
 
     let aboutSection = document.getElementById('aboutSection');
@@ -208,6 +210,7 @@ function renderAbout(i) {
     aboutSection.innerHTML = loadAbout(i, height, weight, base_experience);
     loadAbilities(i, currentAbout)
 }
+
 
 function loadAbout(i, height, weight, base_experience) {
     return `
@@ -245,11 +248,13 @@ function loadAbout(i, height, weight, base_experience) {
 `;
 }
 
+
 function renderDescription(i){
     let descriptionSection = document.getElementById('descriptionSection');
     let description = currentSpecies['genera'][7]['genus'];
     descriptionSection.innerHTML = `<h4>${description}</h4>`;
 }
+
 
 function loadAbilities(i) {
     let firstAbilities = document.getElementById('firstAbilitiesDetails' + i)
@@ -258,6 +263,7 @@ function loadAbilities(i) {
         firstAbilities.innerHTML += `<p class="information">${ability}</p>`
     }
 }
+
 
 /*
 #################################################################################
@@ -270,6 +276,7 @@ function renderBaseValue() {
     baseValueSection.innerHTML = ``;
     loadBaseValue(baseValueSection)
 }
+
 
 function loadBaseValue(baseValueSection) {
     for (let j = 0; j < currentAbout['stats'].length; j++) {
@@ -287,6 +294,7 @@ function loadBaseValue(baseValueSection) {
     loadChart()
     ;
 }
+
 
 function loadChart() {
 
@@ -353,6 +361,7 @@ async function showLast(i) {
         }
     }
 }
+
 
 async function showNext(i) {
     if (!loadFullscreen) {

@@ -1,9 +1,11 @@
 let loadscreen = false;
 let timer = 500;
 
+
 function resetTimer() {
     timer = 500;
 }
+
 
 async function searchNames() {  /* starts on input */
     let search = document.getElementById('search');
