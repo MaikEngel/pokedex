@@ -16,6 +16,8 @@ let counter = 0;
 let newPokemon = 0;
 let request = true;
 let loading = true;
+/* for search function */
+let currentSearchedPokemon;
 
 
 /*
@@ -42,7 +44,7 @@ Push into allPokemonSpecies for search function & load the first 20 Pokemon
 */
 
 async function loadAll() {
-    let speciesUrl = `https://pokeapi.co/api/v2/pokemon?offset=0&limit=898`
+    let speciesUrl = `https://pokeapi.co/api/v2/pokemon?offset=0&limit=898`;
     let responseSpecies = await fetch(speciesUrl);
     currentSpecies = await responseSpecies.json();
     allPokemonSpecies.push(currentSpecies['results']);
@@ -61,7 +63,7 @@ async function init(loadingScreen) {
         }
         request = true;
         loading = false;
-        return;
+        ;
     }
 }
 
@@ -92,7 +94,7 @@ function renderPokemonList(currentPokemon, i, pokemonList) {
 
 function loadLayout(i, pokemonName, pokemonImg, pokemonId) {
     return `
-        <div onclick="openFullscreen(${i})" id="background${i}" class="pokemonBackground" loading="lazy" style="border-style: inset;">
+        <div onclick="fetchApi(${i})" id="background${i}" class="pokemonBackground" style="border-style: inset;">
             <h2>${pokemonName}</h2>
             <div class="typeContainer " id="types${i}"></div>
             <p class="pokemonId">#${pokemonId}</p>

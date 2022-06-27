@@ -57,6 +57,7 @@ Loaded the evolutionsection and fetch the evolutionchain api
 */
 
 async function loadEvolution(i) {
+        loadFullscreen = true;
     let speciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${i + 1}/`
     let responseSpecies = await fetch(speciesUrl);
     let currentSpecies = await responseSpecies.json();
@@ -124,8 +125,11 @@ async function showSecondEvolution() {
             pokemonTwo.innerHTML += `
                 <img class="evolutionImg" src="${evolutionSecondImg}">
         `;
-        }
         await showThirdEvolution()
+        loadFullscreen = false;
+        }
+    }else{
+        loadFullscreen = false;
     }
 }
 
@@ -146,8 +150,11 @@ async function showThirdEvolution() {
                     `
             pokemonThree.innerHTML += `
                 <img class="evolutionImg" src="${evolutionThirdImg}">
-        `;
+        `
+        loadFullscreen = false;;
         }
+    }else{
+        loadFullscreen = false;
     }
 }
 

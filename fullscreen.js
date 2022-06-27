@@ -1,3 +1,17 @@
+let loadFullscreen = false;
+
+/*
+#################################################################################
+Fetch api for fullscreen view
+#################################################################################
+*/
+async function fetchApi(i) {
+    let aboutUrl = `https://pokeapi.co/api/v2/pokemon/${i + 1}/`;
+    let responseAbout = await fetch(aboutUrl);
+    currentAbout = await responseAbout.json();
+    openFullscreen(i)
+}
+
 /*
 #################################################################################
 Open & close fullscreen | Hide & show scrollbar
@@ -7,11 +21,10 @@ Open & close fullscreen | Hide & show scrollbar
 function openFullscreen(i) {
     statNames = [];
     baseStats = [];
-    let pokemonDetails = document.getElementById('fullscreen')
-    pokemonDetails.classList.remove('dNone')
-
-    renderFullscreenLayout(i)
+    let pokemonDetails = document.getElementById('fullscreen');
+    pokemonDetails.classList.remove('dNone');
     document.getElementById('body').classList.add('hideScrollbar');
+    renderFullscreenLayout(i)
 }
 
 function closeFullscreen() {
@@ -33,8 +46,10 @@ Render the layout in fullscreen view
 
 function renderFullscreenLayout(i) {
     let pokemonDetails = document.getElementById('fullscreen')
+    let type = currentAbout['types'][0]['type']['name']
     pokemonDetails.innerHTML = ``;
     pokemonDetails.innerHTML = fullscreenLayout(i);
+    loadDetailBackground(i, type)
     renderFullscreenImage(i)
 }
 
@@ -79,19 +94,13 @@ Render the current image
 */
 
 async function renderFullscreenImage(i) {
-    let pokemonImgUrl = `https://pokeapi.co/api/v2/pokemon/${i + 1}/`;
-    let responsePokemon = await fetch(pokemonImgUrl);
-    let currentPokemonImg = await responsePokemon.json();
-    let aboutUrl = `https://pokeapi.co/api/v2/pokemon/${i + 1}/`;
-    let responseAbout = await fetch(aboutUrl);
-    currentAbout = await responseAbout.json();
-    let pokemonImg = currentPokemonImg['sprites']['other']['home']['front_default']
+    let pokemonImg = currentAbout['sprites']['other']['home']['front_default']
     let detailsImg = document.getElementById('detailsImg');
     detailsImg.innerHTML = "";
     detailsImg.innerHTML = `
     <img class="detailsImg" src="${pokemonImg}">`
-    await renderFullscreenSections(i, currentAbout);
-    await renderFullscreenName(i, currentAbout)
+    await renderFullscreenName(i)
+    await renderFullscreenSections(i);
 }
 
 
@@ -102,7 +111,7 @@ Render name, type, id & menubar
 */
 
 
-async function renderFullscreenName(i, currentAbout) {
+async function renderFullscreenName(i) {
     let speciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${i + 1}/`
     let responseSpecies = await fetch(speciesUrl);
     currentSpecies = await responseSpecies.json();
@@ -112,46 +121,41 @@ async function renderFullscreenName(i, currentAbout) {
     pokemonName.innerHTML = `
     <h2>${pokemonNames}</h2>
     `;
-    await renderFullscreenID(pokemonName, i, currentAbout)
-    await renderFullscreenType(pokemonName, i, currentAbout)
+    await renderFullscreenID(pokemonName, i)
+    await renderFullscreenType(pokemonName, i)
     await renderMenu(i)
 }
 
-function renderFullscreenType(pokemonName, i, currentAbout) {
-    let type = currentAbout['types'][0]['type']['name']
+function renderFullscreenType(pokemonName, i) {
     pokemonName.innerHTML += `
     <div class="typeContainerDetails" id="typesDetail${i}"></div>
     `
-    loadDetailBackground(i, type)
-    renderFullscreenBackground(i, type)
-    loadType(i, currentAbout)
-
+    loadType(i)
 }
 
-function loadType(i, currentAbout) {
+function loadType(i) {
     let pokemonType = document.getElementById('typesDetail' + i);
     for (let j = 0; j < currentAbout['types'].length; j++) {
         let types = currentAbout['types'][j]['type']['name'];
         pokemonType.innerHTML += `<h4 class="typeDesign">${types}</h4>`
     }
-    return;
+    ;
 }
 
-function renderFullscreenID(pokemonName,) {
+function renderFullscreenID(pokemonName) {
     let pokemonId = currentSpecies['id'];
     pokemonName.innerHTML += `<h3 style="order: 1;">#${pokemonId}</h3>`;
 }
 
-async function renderMenu(i) {
+async function renderMenu() {
     detailsInfos.innerHTML = `
-
-    <a class="infoButtonsDetails" href="#aboutSection">About</a>
-    <p>|</p>   
-    <a class="infoButtonsDetails" href="#baseValueSection">Base value</a> 
-    <p>|</p>             
-    <a class="infoButtonsDetails" href="#evolutionSection">Evolution</a>
-    <p>|</p>             
-    <a class="infoButtonsDetails" href="#shinySection">Shiny</a>
+        <a class="infoButtonsDetails" href="#aboutSection">About</a>
+        <p>|</p> 
+        <a class="infoButtonsDetails" href="#baseValueSection">Base value</a> 
+        <p>|</p>             
+        <a class="infoButtonsDetails" href="#evolutionSection">Evolution</a>
+        <p>|</p>             
+        <a class="infoButtonsDetails" href="#shinySection">Shiny</a>
     `
 }
 
@@ -162,13 +166,17 @@ Load abilities and render the current about, abilities...
 #################################################################################
 */
 
-async function renderFullscreenSections(i, currentAbout) {
+async function renderFullscreenSections(i) {
     detailsRightSide = document.getElementById('detailsRightSide')
     detailsRightSide.innerHTML = ``;
     detailsRightSide.innerHTML = `
     <div style="margin-bottom: 16px;">
         <h2>About</h2>
         <table class="detailsRightSideSections statsTable" id="aboutSection"></table>
+    </div>
+    <div style="margin-bottom: 16px;">
+        <h2>Description</h2>
+        <table class="detailsRightSideSections statsTable" id="descriptionSection"></table>
     </div>
     <div style="margin-bottom: 16px;">
         <h2>Base Value</h2>
@@ -184,13 +192,14 @@ async function renderFullscreenSections(i, currentAbout) {
     </div>
 
     `;
-    await renderAbout(i, currentAbout);
-    await renderBaseValue(currentAbout);
-    await loadEvolution(i, currentAbout);
-    await loadShiny(currentAbout)
+    await renderAbout(i);
+    await renderDescription(i);
+    await renderBaseValue();
+    await loadShiny()
+    await loadEvolution(i);
 }
 
-function renderAbout(i, currentAbout) {
+function renderAbout(i) {
 
     let aboutSection = document.getElementById('aboutSection');
     let height = currentAbout['height'] / 10;
@@ -236,12 +245,18 @@ function loadAbout(i, height, weight, base_experience) {
 `;
 }
 
-function loadAbilities(i, currentAbout) {
+function renderDescription(i){
+    let descriptionSection = document.getElementById('descriptionSection');
+    let description = currentSpecies['genera'][7]['genus'];
+    descriptionSection.innerHTML = `<h4>${description}</h4>`;
+}
+
+function loadAbilities(i) {
     let firstAbilities = document.getElementById('firstAbilitiesDetails' + i)
     for (let j = 0; j < currentAbout['abilities'].length; j++) {
         let ability = currentAbout['abilities'][j]['ability']['name'];
         firstAbilities.innerHTML += `<p class="information">${ability}</p>`
-    } currentAbout
+    }
 }
 
 /*
@@ -250,13 +265,13 @@ Load stats and render the current base value
 #################################################################################
 */
 
-function renderBaseValue(currentAbout) {
+function renderBaseValue() {
     let baseValueSection = document.getElementById('baseValueSection');
     baseValueSection.innerHTML = ``;
-    loadBaseValue(baseValueSection, currentAbout)
+    loadBaseValue(baseValueSection)
 }
 
-function loadBaseValue(baseValueSection, currentAbout) {
+function loadBaseValue(baseValueSection) {
     for (let j = 0; j < currentAbout['stats'].length; j++) {
 
         let baseStat = currentAbout['stats'][j]['base_stat'];
@@ -270,7 +285,7 @@ function loadBaseValue(baseValueSection, currentAbout) {
     </div>
     `;
     loadChart()
-    return;
+    ;
 }
 
 function loadChart() {
@@ -316,11 +331,10 @@ function loadChart() {
 }
 
 
-function loadShiny(currentAbout) {
+function loadShiny() {
     let shinySection = document.getElementById('shinySection');
     let shinyImg = currentAbout['sprites']['other']['home']['front_shiny']
     shinySection.innerHTML = `<img style="height: 220px" src="${shinyImg}" class="shinyPokemon">`;
-    
 }
 
 /*
@@ -329,19 +343,25 @@ Load stats and render the current base value
 #################################################################################
 */
 
-function showLast(i) {
-    if (i == -1) {
-        openFullscreen(897)
-    } else {
-        openFullscreen(i)
+async function showLast(i) {
+    if (!loadFullscreen) {
+        loadFullscreen = true;
+        if (i == -1) {
+            await fetchApi(897)
+        } else {
+            await fetchApi(i)
+        }
     }
-    
 }
 
-function showNext(i) {
-    if (i == 898) {
-        openFullscreen(0)
-    } else {
-        openFullscreen(i)
+async function showNext(i) {
+    if (!loadFullscreen) {
+        loadFullscreen = true;
+        if (i == 898) {
+            await fetchApi(0)
+        } else {
+            await fetchApi(i)
+        }
     }
+
 }

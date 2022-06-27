@@ -1,4 +1,3 @@
-
 /*
 #################################################################################
 Background-color in small view
@@ -198,69 +197,3 @@ function loadDetailBackground(i, type) {
     return;
 };
 
-/*
-#################################################################################
-Background in fullscreen view
-#################################################################################
-*/
-
-function renderFullscreenBackground(i, type) {
-    let detailsBackgroundColor = document.getElementById('pokemonDetails' + i)
-    let firstType = type;
-
-    if (firstType == 'normal') {
-        detailsBackgroundColor.classList.add('pokemonBackgroundNormalDetails')
-    }
-    if (firstType == 'fighting') {
-        detailsBackgroundColor.classList.add('pokemonBackgroundFightDetails')
-    }
-    if (firstType == 'flying') {
-        detailsBackgroundColor.classList.add('pokemonBackgroundFlyingDetails')
-    }
-    if (firstType == 'poison') {
-        detailsBackgroundColor.classList.add('pokemonBackgroundPoisonDetails')
-    }
-    if (firstType == 'ground') {
-        detailsBackgroundColor.classList.add('pokemonBackgroundGroundDetails')
-    }
-    if (firstType == 'rock') {
-        detailsBackgroundColor.classList.add('pokemonBackgroundRockDetails')
-    }
-    if (firstType == 'bug') {
-        detailsBackgroundColor.classList.add('pokemonBackgroundBugDetails')
-    }
-    if (firstType == 'ghost') {
-        detailsBackgroundColor.classList.add('pokemonBackgroundGhostDetails')
-    }
-    if (firstType == 'steel') {
-        detailsBackgroundColor.classList.add('pokemonBackgroundSteelDetails')
-    }
-    if (firstType == 'fire') {
-        detailsBackgroundColor.classList.add('pokemonBackgroundFireDetails')
-    }
-    if (firstType == 'water') {
-        detailsBackgroundColor.classList.add('pokemonBackgroundWaterDetails')
-    }
-    if (firstType == 'grass') {
-        detailsBackgroundColor.classList.add('pokemonBackgroundGrassDetails')
-    }
-    if (firstType == 'electric') {
-        detailsBackgroundColor.classList.add('pokemonBackgroundElectricDetails')
-    }
-    if (firstType == 'psychic') {
-        detailsBackgroundColor.classList.add('pokemonBackgroundPsychicDetails')
-    }
-    if (firstType == 'ice') {
-        detailsBackgroundColor.classList.add('pokemonBackgroundIceDetails')
-    }
-    if (firstType == 'dragon') {
-        detailsBackgroundColor.classList.add('pokemonBackgroundDragonDetails')
-    }
-    if (firstType == 'dark') {
-        detailsBackgroundColor.classList.add('pokemonBackgroundDarkDetails')
-    }
-    if (firstType == 'fairy') {
-        detailsBackgroundColor.classList.add('pokemonBackgroundFairyDetails')
-    }
-    return;
-};

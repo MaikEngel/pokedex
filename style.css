@@ -364,8 +364,9 @@ Fullscreen view
 
 .detailsRightSide {
     background-color: #00000061;
-    height: 482px;
+    height: 450px;
     position: relative;
+    top: 10px;
     border-radius: 30px;
     padding: 36px;
     overflow: scroll;
@@ -374,7 +375,6 @@ Fullscreen view
     scroll-behavior: smooth;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .pokemonDetailsLayout {
