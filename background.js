@@ -196,4 +196,3 @@ function loadDetailBackground(i, type) {
     }
     return;
 };
-

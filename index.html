@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokédex</title>
+    <script src="navbar.js"></script>
     <script src="script.js"></script>
     <script src="search.js"></script>
     <script src="fullscreen.js"></script>
@@ -26,25 +27,8 @@
 
 <body onload="loadAll()" id="body" onscroll="scrollTopButton(); hitBottom()">
 
-    <header>
-        <h1 style="font-family: 'Bowlby One SC' !important;" onclick="location.reload()">PokéDex</h1>
-        <div class="searchArea">
-            <input type="text" oninput="setTimeout(searchNames, timer)" onkeydown="resetTimer()" class="searchBar" id="search" placeholder="Search by name">
-            <div class="outputSearchPoke" id="outputSearchPoke" style="border-radius: 15px;">
-            </div>
-        </div>
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
-                data-bs-toggle="dropdown" aria-expanded="false" style="background-color: black;">
-            </button>
-            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                <li><a class="dropdown-item active" href="#">Impressum</a></li>
-                <li><a class="dropdown-item" href="#">Datenschutz</a></li>
-                <li>
-
-            </ul>
-        </div>
-    </header>
+    <header w3-include-html="includes/header.html"></header>
+    
 
     <div id="fullscreen" style="z-index: 7; position: fixed; top: 0; bottom: 0; left: 0; right: 0; background-color: #0000005c;" class="dNone">
     </div>
@@ -55,7 +39,7 @@
         <div class="">
             <div class="titleScreen" id="titleScreen">
                 <h1>PokéDex</h1>
-                <h2 onclick="clearPage()">click to load Pokémon</h2>
+                <h2 onclick="initHeader(); clearPage()">click to load Pokémon</h2>
             </div>
         </div>
     </div>
