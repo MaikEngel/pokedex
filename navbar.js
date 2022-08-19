@@ -15,3 +15,9 @@ async function includeHTML() {
         }
     }
 }
+
+function disabledSearch(){
+    setTimeout(() => {
+        document.getElementById("search").disabled = true;
+    }, 1000);
+}
