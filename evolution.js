@@ -66,7 +66,9 @@ async function loadEvolution(i) {
     currentEvolution = await responseEvolution.json();
     let evolutionSection = document.getElementById('evolutionSection');
     evolutionSection.innerHTML = ``;
-    renderEvolutionSection(i)
+    renderEvolutionSection(i);
+    document.getElementById('pokemonDetails' + i).classList.remove('dNone')
+    document.getElementById('loadingPokemon').classList.add('dNone')
 }
 
 /*

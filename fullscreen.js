@@ -49,13 +49,14 @@ function renderFullscreenLayout(i) {
     let type = currentAbout['types'][0]['type']['name']
     pokemonDetails.innerHTML = ``;
     pokemonDetails.innerHTML = fullscreenLayout(i);
-    loadDetailBackground(i, type)
-    renderFullscreenImage(i)
+    loadDetailBackground(i, type);
+    renderFullscreenImage(i);
 }
 
 function fullscreenLayout(i) {
     return `
-            <div class="pokemonDetailsLayout" id="pokemonDetails${i}">
+            <img src="img/pikachu.gif" alt="" id="loadingPokemon" class="loadingScreen">
+            <div class="pokemonDetailsLayout dNone" id="pokemonDetails${i}">
             <div class="pokemonDetailsLayoutFullsscreen">
                 <div class="fullscreenArrow">
                     <img src="img/arrow_back.png" onclick="showLast(${i - 1})">
@@ -249,7 +250,7 @@ function loadAbout(i, height, weight, base_experience) {
 }
 
 
-function renderDescription(i){
+function renderDescription(i) {
     let descriptionSection = document.getElementById('descriptionSection');
     let description = currentSpecies['genera'][7]['genus'];
     descriptionSection.innerHTML = `<h4>${description}</h4>`;
@@ -292,7 +293,7 @@ function loadBaseValue(baseValueSection) {
     </div>
     `;
     loadChart()
-    ;
+        ;
 }
 
 
